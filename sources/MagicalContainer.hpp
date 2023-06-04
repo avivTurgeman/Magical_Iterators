@@ -14,16 +14,16 @@ namespace ariel {
             
             void addElement(int);
             void removeElement(int);
-            size_t size() const;
+            std::size_t size() const;
     
         class AscendingIterator {
             private:
                 MagicalContainer& container_;
-                size_t index_;
+                std::size_t index_;
 
             public:
                 //Constructors
-                AscendingIterator(MagicalContainer&);
+                AscendingIterator(MagicalContainer&, std::size_t index = 0);
                 AscendingIterator(const AscendingIterator&);
 
                 //Deconstructor
@@ -50,11 +50,11 @@ namespace ariel {
         class SideCrossIterator {
             private:
                 MagicalContainer& container_;
-                size_t index_;
+                std::size_t index_;
 
             public:
                 //Constructors
-                SideCrossIterator(MagicalContainer&);
+                SideCrossIterator(MagicalContainer&, std::size_t index = 0);
                 SideCrossIterator(const SideCrossIterator&);
 
                 //Deconstructor
@@ -81,11 +81,11 @@ namespace ariel {
         class PrimeIterator {
             private:
                 MagicalContainer& container_;
-                size_t index_;
+                std::size_t index_;
 
             public:
                 //Constructors
-                PrimeIterator(MagicalContainer&);
+                PrimeIterator(MagicalContainer&, std::size_t index = 0);
                 PrimeIterator(const PrimeIterator&);
 
                 //Deconstructor

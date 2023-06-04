@@ -54,26 +54,22 @@ TEST_SUITE("AscendingIterator"){
         container.addElement(0);
 
         int i = 0;
-        for(auto itr = ascIter.begin(); itr != ascIter.end(); ++ascIter, ++i){
-            CHECK_EQ(*ascIter, i);
+        for(auto itr = ascIter.begin(); itr != ascIter.end(); ++itr, ++i){
+            CHECK_EQ(*itr, i);
         }
 
         CHECK_EQ(container.size(), 5);
-        CHECK_EQ(ascIter.begin(), 0);
-        CHECK_EQ(ascIter.end(), 4);
 
         container.removeElement(0);
         container.removeElement(4);
        
         CHECK_EQ(container.size(), 3);
-        CHECK_EQ(ascIter.begin(), 1);
-        CHECK_EQ(ascIter.end(), 3);
     }
 }
 
 TEST_SUITE("SideCrossIterator"){
     MagicalContainer container;
-    MagicalContainer::AscendingIterator ascIter(container);
+    MagicalContainer::SideCrossIterator crossIter(container);
 
     TEST_CASE("side crossed"){
         container.addElement(0);
@@ -82,35 +78,31 @@ TEST_SUITE("SideCrossIterator"){
         container.addElement(3);
         container.addElement(4);
 
-        CHECK_EQ(*ascIter, 0);
-        ++ascIter;
-        CHECK_EQ(*ascIter, 4);
-        ++ascIter;
-        CHECK_EQ(*ascIter, 1);
-        ++ascIter;
-        CHECK_EQ(*ascIter, 2);
-        ++ascIter;
-        CHECK_EQ(*ascIter, 3);
+        CHECK_EQ(*crossIter, 0);
+        ++crossIter;
+        CHECK_EQ(*crossIter, 4);
+        ++crossIter;
+        CHECK_EQ(*crossIter, 1);
+        ++crossIter;
+        CHECK_EQ(*crossIter, 2);
+        ++crossIter;
+        CHECK_EQ(*crossIter, 3);
 
 
         CHECK_EQ(container.size(), 5);
-        CHECK_EQ(ascIter.begin(), 0);
-        CHECK_EQ(ascIter.end(), 3);
 
         container.removeElement(0);
         container.removeElement(3);
        
         CHECK_EQ(container.size(), 3);
-        CHECK_EQ(ascIter.begin(), 4);
-        CHECK_EQ(ascIter.end(), 2);
     }
 }
 
-TEST_SUITE("SideCrossIterator"){
+TEST_SUITE("PrimeIterator"){
     MagicalContainer container;
-    MagicalContainer::AscendingIterator ascIter(container);
+    MagicalContainer::PrimeIterator primeIter(container);
 
-    TEST_CASE("side crossed"){
+    TEST_CASE("prime only"){
         container.addElement(0);
         container.addElement(2);
         container.addElement(1);
@@ -118,23 +110,19 @@ TEST_SUITE("SideCrossIterator"){
         container.addElement(3);
         container.addElement(5);
 
-        CHECK_EQ(*ascIter, 2);
-        ++ascIter;
-        CHECK_EQ(*ascIter, 7);
-        ++ascIter;
-        CHECK_EQ(*ascIter, 3);
-        ++ascIter;
-        CHECK_EQ(*ascIter, 5);
+        CHECK_EQ(*primeIter, 2);
+        ++primeIter;
+        CHECK_EQ(*primeIter, 7);
+        ++primeIter;
+        CHECK_EQ(*primeIter, 3);
+        ++primeIter;
+        CHECK_EQ(*primeIter, 5);
 
         CHECK_EQ(container.size(), 4);
-        CHECK_EQ(ascIter.begin(), 2);
-        CHECK_EQ(ascIter.end(), 5);
 
         container.removeElement(2);
         container.removeElement(5);
        
         CHECK_EQ(container.size(), 2);
-        CHECK_EQ(ascIter.begin(), 7);
-        CHECK_EQ(ascIter.end(), 3);
     }
 }
