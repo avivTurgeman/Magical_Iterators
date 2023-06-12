@@ -43,19 +43,24 @@ TEST_SUITE("MagicalContainer"){
 }
 
 TEST_SUITE("AscendingIterator"){
+
     MagicalContainer container;
     MagicalContainer::AscendingIterator ascIter(container);
-
     TEST_CASE("sorted after adding"){
         container.addElement(3);
-        container.addElement(1);
+        container.addElement(-1);
         container.addElement(4);
         container.addElement(2);
+        container.addElement(-3);
         container.addElement(0);
+        container.addElement(10);
+        container.addElement(-10);
+
+        std::vector<int> expected{-10, -3, -1, 0, 2, 3, 4, 10};
 
         int i = 0;
         for(auto itr = ascIter.begin(); itr != ascIter.end(); ++itr, ++i){
-            CHECK_EQ(*itr, i);
+            CHECK_EQ(*itr, expected[i]);
         }
 
         CHECK_EQ(container.size(), 5);
@@ -63,14 +68,35 @@ TEST_SUITE("AscendingIterator"){
         container.removeElement(0);
         container.removeElement(4);
        
-        CHECK_EQ(container.size(), 3);
+        CHECK_EQ(container.size(), 6);
+    }
+
+    MagicalContainer::AscendingIterator ascIter1(container);
+    MagicalContainer::AscendingIterator ascIter2(container);
+    TEST_CASE("operators ==, !=, <, >"){
+        CHECK(ascIter1 == ascIter2);
+        CHECK_FALSE(ascIter1 != ascIter2);
+
+        ++ascIter1;
+        CHECK_FALSE(ascIter1 == ascIter2);
+        CHECK(ascIter1 != ascIter2);
+
+        CHECK(ascIter1 > ascIter2);
+        CHECK(ascIter2 < ascIter1);
+
+        ++ascIter2;
+        CHECK(ascIter1 == ascIter2);
+        CHECK_FALSE(ascIter1 != ascIter2);
+
+        CHECK_FALSE(ascIter1 > ascIter2);
+        CHECK_FALSE(ascIter2 < ascIter1);
     }
 }
 
 TEST_SUITE("SideCrossIterator"){
+
     MagicalContainer container;
     MagicalContainer::SideCrossIterator crossIter(container);
-
     TEST_CASE("side crossed"){
         container.addElement(0);
         container.addElement(1);
@@ -96,13 +122,34 @@ TEST_SUITE("SideCrossIterator"){
        
         CHECK_EQ(container.size(), 3);
     }
+
+    MagicalContainer::SideCrossIterator crossIter1(container);
+    MagicalContainer::SideCrossIterator crossIter2(container);
+    TEST_CASE("operators ==, !=, <, >"){
+        CHECK(crossIter1 == crossIter2);
+        CHECK_FALSE(crossIter1 != crossIter2);
+
+        ++crossIter1;
+        CHECK_FALSE(crossIter1 == crossIter2);
+        CHECK(crossIter1 != crossIter2);
+
+        CHECK(crossIter1 > crossIter2);
+        CHECK(crossIter2 < crossIter1);
+
+        ++crossIter2;
+        CHECK(crossIter1 == crossIter2);
+        CHECK_FALSE(crossIter1 != crossIter2);
+
+        CHECK_FALSE(crossIter1 > crossIter2);
+        CHECK_FALSE(crossIter2 < crossIter1);
+    }
 }
 
 TEST_SUITE("PrimeIterator"){
+
     MagicalContainer container;
     MagicalContainer::PrimeIterator primeIter(container);
-
-    TEST_CASE("prime only"){
+    TEST_CASE("primes only"){
         container.addElement(0);
         container.addElement(2);
         container.addElement(1);
@@ -121,8 +168,28 @@ TEST_SUITE("PrimeIterator"){
         CHECK_EQ(container.size(), 4);
 
         container.removeElement(2);
-        container.removeElement(5);
-       
-        CHECK_EQ(container.size(), 2);
+    
+        CHECK_EQ(container.size(), 3);
+    }
+
+    MagicalContainer::PrimeIterator primeIter1(container);
+    MagicalContainer::PrimeIterator primeIter2(container);
+    TEST_CASE("operators ==, !=, <, >"){
+        CHECK(primeIter1 == primeIter2);
+        CHECK_FALSE(primeIter1 != primeIter2);
+
+        ++primeIter1;
+        CHECK_FALSE(primeIter1 == primeIter2);
+        CHECK(primeIter1 != primeIter2);
+
+        CHECK(primeIter1 > primeIter2);
+        CHECK(primeIter2 < primeIter1);
+
+        ++primeIter2;
+        CHECK(primeIter1 == primeIter2);
+        CHECK_FALSE(primeIter1 != primeIter2);
+
+        CHECK_FALSE(primeIter1 > primeIter2);
+        CHECK_FALSE(primeIter2 < primeIter1);
     }
 }
