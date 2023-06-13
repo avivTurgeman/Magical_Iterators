@@ -145,8 +145,8 @@ TEST_SUITE("SideCrossIterator"){
     }
 }
 
-TEST_SUITE("PrimeIterator"){
-
+TEST_SUITE("PrimeIterator")
+{
     MagicalContainer container;
     MagicalContainer::PrimeIterator primeIter(container);
     TEST_CASE("primes only"){
